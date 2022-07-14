@@ -1,0 +1,6 @@
+mysql_yaml/mysql/data/*
+mysql_yaml/mysql/config/*
+mysql_yaml/.env
+monitor_yaml/monitor/prometheus/data/*
+monitor_yaml/monitor/grafana/data/*
+monitor_yaml/monitor/consul/data/*
