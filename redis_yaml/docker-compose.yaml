@@ -1,0 +1,19 @@
+version: '2'
+services:
+  redis:
+    restart: always
+    image: redis/redis-stack:latest
+    container_name: redis
+    volumes:
+      - ${REDIS_DIR}/data:/data
+      - ${REDIS_DIR}/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ${REDIS_DIR}/logs:/logs
+    command: redis-server --requirepass 10710
+  #   #  两个写入操作 只是为了解决启动后警告 可以去掉
+  #    /bin/bash -c "echo 511 > /proc/sys/net/core/somaxconn
+  #    && echo never > /sys/kernel/mm/transparent_hugepage/enabled
+  #    && redis-server /usr/local/etc/redis/redis.conf"
+    ports:
+      # 使用宿主机的端口映射到容器的端口
+      # 宿主机：容器
+      - 6379:6379
