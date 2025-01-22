@@ -8,7 +8,7 @@ services:
       - ${REDIS_DIR}/data:/data
       - ${REDIS_DIR}/conf/redis.conf:/usr/local/etc/redis/redis.conf
       - ${REDIS_DIR}/logs:/logs
-    command: redis-server --requirepass 10710
+    command: redis-server --requirepass redis
   #   #  两个写入操作 只是为了解决启动后警告 可以去掉
   #    /bin/bash -c "echo 511 > /proc/sys/net/core/somaxconn
   #    && echo never > /sys/kernel/mm/transparent_hugepage/enabled

@@ -12,4 +12,6 @@ services:
     volumes:
       - "${MYSQL_DIR}/data:/var/lib/mysql" # 挂载数据目录
       - "${MYSQL_DIR}/config:/etc/mysql/conf.d"      # 挂载配置文件目录
+      - "${MYSQL_DIR}/init:/docker-entrypoint-initdb.d/" 
+    command: --bind-address=0.0.0.0 # --skip-grant-tables
 

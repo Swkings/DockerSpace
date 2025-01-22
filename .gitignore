@@ -1,10 +1,1 @@
-mysql_yaml/mysql/data/*
-mysql_yaml/mysql/config/*
-redis_yaml/redis/data/*
-redis_yaml/redis/config/*
-redis_yaml/redis/logs/*
-monitor_yaml/monitor/prometheus/data/*
-monitor_yaml/monitor/grafana/data/*
-monitor_yaml/monitor/consul/data/*
-etcd_yaml/etcd/localtime
-etcd_yaml/etcd/data
+/.idea
