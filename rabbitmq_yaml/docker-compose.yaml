@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # AMQP 端口
+      - "15672:15672"  # RabbitMQ 管理界面端口
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RMQ_ROOT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RMQ_ROOT_PASSWORD}
+    volumes:
+      - ${RMQ_DIR}/data:/var/lib/rabbitmq
+volumes:
+  rabbitmq_data:
+
