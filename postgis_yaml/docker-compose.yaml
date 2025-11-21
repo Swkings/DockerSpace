@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgis:
+    image: kartoza/postgis  # 使用 postgis/postgis 镜像
+    container_name: postgis
+    restart: always        # 出现错误时自动重启
+    environment:           # 设置环境变量
+      POSTGRES_DB: mydb     # 数据库名为 mydatabase
+      POSTGRES_USER: root       # 用户名
+      POSTGRES_PASSWORD: root   # 密码
+    ports:
+      - "5432:5432"        # 将本地端口 5432 映射到容器内的 5432 端口
+    volumes:               # 将本地目录映射到容器内的目录
+      - ./postgis/data:/var/lib/postgresql   # 将本地 data 目录映射到容器内的 /var/lib/ postgresql/data 目录
+      - "./postgis./init:/docker-entrypoint-initdb.d/"
+    networks:
+      - net_postgis # 使用指定声明的网咯
+
+# 声明网络，在外部容器中可进行链接（link）来达到在其他容器中使用postgis容器（所在的网络）
+networks:
+  net_postgis:
