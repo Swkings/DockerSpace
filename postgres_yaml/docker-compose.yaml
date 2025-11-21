@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    # 使用集成了 PostGIS 和 pgvector 的现成镜像
+    image: garapadev/postgres-postgis-pgvector:latest 
+    # 或者使用 ankane/pgvector 镜像，它也包含了 pgvector
+    # image: ankane/pgvector
+    
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: default_db
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    volumes:
+      # 将数据持久化到本地一个名为 'data' 的卷中
+      - ./postgres/data:/var/lib/postgresql/data
+  
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    networks:
+      - postgres
+    ports:
+      - "5050:80"
+    volumes:
+       - ./postgres/pgadmin:/root/.pgadmin
+
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres:
+    pgadmin:

@@ -1,0 +1,31 @@
+# version: "3.9"
+# services:
+#   selenium-chrome:
+#     image: selenium/standalone-chrome:latest
+#     restart: always
+#     ports:
+#       - 5900:5900
+#       - 4444:4444
+
+version: "3"
+services:
+  chrome:
+    image: selenium/node-chrome:4.1.2-20220208
+    shm_size: 12gb
+    depends_on:
+      - selenium-hub
+    ports:
+      - "7901:7900"
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_SESSION_TIMEOUT=350
+      - SE_NODE_MAX_SESSIONS=20
+  selenium-hub:
+    image: selenium/hub:4.1.2-20220208
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"

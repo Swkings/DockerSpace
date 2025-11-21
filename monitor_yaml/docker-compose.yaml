@@ -17,7 +17,7 @@ services:
         command:
             - '--config.file=/etc/prometheus/prometheus.yml'
             - '--storage.tsdb.path=/prometheus'
-            - '--storage.tsdb.retention=15d'
+            - '--storage.tsdb.retention.time=30d'
             - '--web.enable-lifecycle'
         ports:
             - "9090:9090"
@@ -61,16 +61,27 @@ services:
         networks:
             - monitor
 
-    consul:
-        image: consul
-        container_name: "consul"
+    # Pushgateway配置添加在此
+    pushgateway:
+        image: prom/pushgateway
+        container_name: pushgateway
+        hostname: pushgateway
         restart: always
-        user: root
         ports:
-          - "8500:8500"
-        volumes:
-          - ./monitor/consul/data:/consul/data
-        command: [agent,-server,-ui,-client=0.0.0.0,-bootstrap-expect=1]
+            - "9091:9091"
+        networks:
+            - monitor
+
+    # consul:
+    #     image: consul
+    #     container_name: "consul"
+    #     restart: always
+    #     user: root
+    #     ports:
+    #       - "8500:8500"
+    #     volumes:
+    #       - ./monitor/consul/data:/consul/data
+    #     command: [agent,-server,-ui,-client=0.0.0.0,-bootstrap-expect=1]
 
 
 
